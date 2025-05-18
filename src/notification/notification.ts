@@ -1,6 +1,7 @@
 import {PrismaClient} from "@prisma/client"
 import Router from "express"
 import { sendemail } from "../Push_notification/email";
+import { sendSMS } from "../Push_notification/sms";
 const prisma=new PrismaClient();
 const router=Router();
 router.post("/user",async(req:any,res:any)=>{
@@ -35,6 +36,7 @@ router.post("/notifications",async(req:any,res:any)=>{
         return res.status(440).json({message:"user not found"})
      }
      sendemail(existing.email,data);
+     sendSMS("+917456901002",data); 
         const notification=await prisma.notification.create({
             data:{
                 Content:data,

@@ -16,6 +16,7 @@ exports.notificationrouter = void 0;
 const client_1 = require("@prisma/client");
 const express_1 = __importDefault(require("express"));
 const email_1 = require("../Push_notification/email");
+const sms_1 = require("../Push_notification/sms");
 const prisma = new client_1.PrismaClient();
 const router = (0, express_1.default)();
 router.post("/user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -50,6 +51,7 @@ router.post("/notifications", (req, res) => __awaiter(void 0, void 0, void 0, fu
         return res.status(440).json({ message: "user not found" });
     }
     (0, email_1.sendemail)(existing.email, data);
+    (0, sms_1.sendSMS)("+917456901002", data);
     const notification = yield prisma.notification.create({
         data: {
             Content: data,
