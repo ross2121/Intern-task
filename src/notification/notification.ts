@@ -36,7 +36,7 @@ router.post("/notifications",async(req:any,res:any)=>{
         return res.status(440).json({message:"user not found"})
      }
      sendemail(existing.email,data);
-     sendSMS("+917456901002",data); 
+     sendSMS(existing.Mobile_No,data); 
         const notification=await prisma.notification.create({
             data:{
                 Content:data,

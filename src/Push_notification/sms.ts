@@ -4,7 +4,6 @@ dotenv.config();
 const accountSid =process.env.Account
 const authToken = process.env.Token
 const client = twilio(accountSid,authToken);
-
 export const sendSMS = async (to: string, message: string) => {
   try {
     const msg = await client.messages.create({
