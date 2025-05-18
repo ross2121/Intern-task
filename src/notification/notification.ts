@@ -1,5 +1,6 @@
 import {PrismaClient} from "@prisma/client"
 import Router from "express"
+import { sendemail } from "../Push_notification/email";
 const prisma=new PrismaClient();
 const router=Router();
 router.post("/user",async(req:any,res:any)=>{
@@ -22,14 +23,18 @@ router.post("/notifications",async(req:any,res:any)=>{
     if(!data||!id){
        return res.status(400).json({message:"Fill all the details"})
     }
+    console.log("checke");
+    const modify=Number(id);
      const existing=await prisma.user.findUnique({
         where:{
-            id
+            id:modify
         }
      })
+     console.log("Dasds");
      if(!existing){
         return res.status(440).json({message:"user not found"})
      }
+     sendemail(existing.email,data);
         const notification=await prisma.notification.create({
             data:{
                 Content:data,

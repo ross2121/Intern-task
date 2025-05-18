@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
-    "express": "^5.1.0"
+    "@types/nodemailer": "^6.4.17",
+    "express": "^5.1.0",
+    "nodemailer": "^7.0.3"
   }
 }

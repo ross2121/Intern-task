@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.notificationrouter = void 0;
 const client_1 = require("@prisma/client");
 const express_1 = __importDefault(require("express"));
+const email_1 = require("../Push_notification/email");
 const prisma = new client_1.PrismaClient();
 const router = (0, express_1.default)();
 router.post("/user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,14 +38,18 @@ router.post("/notifications", (req, res) => __awaiter(void 0, void 0, void 0, fu
     if (!data || !id) {
         return res.status(400).json({ message: "Fill all the details" });
     }
+    console.log("checke");
+    const modify = Number(id);
     const existing = yield prisma.user.findUnique({
         where: {
-            id
+            id: modify
         }
     });
+    console.log("Dasds");
     if (!existing) {
         return res.status(440).json({ message: "user not found" });
     }
+    (0, email_1.sendemail)(existing.email, data);
     const notification = yield prisma.notification.create({
         data: {
             Content: data,
