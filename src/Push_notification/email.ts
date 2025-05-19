@@ -13,7 +13,7 @@ export const sendemail=(email:string,data:string)=>{
     const verifyotp = {
         from: process.env.EMAIL,
         to: email,
-        subject: 'Account Verification Code - Automate with [Your Product Name]',
+        subject: 'Your Message',
         html:data
     };
     

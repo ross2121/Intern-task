@@ -3,6 +3,23 @@ An internship task
 Note-I am not able to deployed it because of the kafka 
 The sms service i have choosen is of twillo so it is trial that is why showing these type of message
 
+## Screenshots
+
+### User Creation
+![User Creation](assets/image%20(7).png)
+
+### Notification Sending
+![Notification Sending](assets/image%20(8).png)
+
+### User List
+![User List](assets/image%20(9).png)
+
+### Notification History
+![Notification History](assets/image%20(10).png)
+
+### Kafka Setup
+![Kafka Setup](assets/WhatsApp%20Image%202025-05-19%20at%209.16.23%20AM%20(1).jpeg)
+
 ## Features
 
 - Email notifications
@@ -111,10 +128,3 @@ The service uses Prisma with the following main models:
 - User (email, Name, Mobile_No)
 - Notification (Content, user_id)
 
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request

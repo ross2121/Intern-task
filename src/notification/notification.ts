@@ -14,7 +14,7 @@ const producer = kafka.producer();
 const consumer = kafka.consumer({ groupId: 'notification-group' });
 async function startConsumer() {
   await consumer.connect();
-  await consumer.subscribe({ topic: 'notifications', fromBeginning: true });
+  await consumer.subscribe({ topic: 'notification', fromBeginning: true });
   await consumer.run({
     eachMessage: async ({ message }) => {
       try {
@@ -90,7 +90,7 @@ router.post("/notifications", async (req: any, res: any) => {
     try {
         await producer.connect();
         await producer.send({
-            topic: 'notifications',
+            topic: 'notification',
             messages: [{
                 value: JSON.stringify({
                     email: existing.email,
