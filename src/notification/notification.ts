@@ -3,6 +3,7 @@ import Router from "express"
 import { sendemail } from "../Push_notification/email";
 import { sendSMS } from "../Push_notification/sms";
 import { Kafka } from "kafkajs"
+import { z } from "zod";
 const prisma = new PrismaClient();
 const router = Router();
 const kafka = new Kafka({
@@ -42,10 +43,16 @@ async function startConsumer() {
 }
 startConsumer().catch(console.error);
 router.post("/user", async (req: any, res: any) => {
-    const { email, Name, Mobile_No } = req.body;
-    if (!email || !Name || !Mobile_No) {
-        return res.status(400).json({ message: "Kindly fill all the details" });
+    const userSchema = z.object({
+        email: z.string().email(),
+        Name: z.string().min(1),
+        Mobile_No: z.string().min(1)
+    });
+    const parseResult = userSchema.safeParse(req.body);
+    if (!parseResult.success) {
+        return res.status(400).json({ message: "Invalid input", errors: parseResult.error.errors });
     }
+    const { email, Name, Mobile_No } = parseResult.data;
     const user = await prisma.user.create({
         data: {
             email,
@@ -56,7 +63,15 @@ router.post("/user", async (req: any, res: any) => {
     return res.status(200).json({ message: "User created", user });
 });
 router.post("/notifications", async (req: any, res: any) => {
-    const { id, data } = req.body;
+    const notificationSchema = z.object({
+        id: z.union([z.string(), z.number()]),
+        data: z.string().min(1)
+    });
+    const parseResult = notificationSchema.safeParse(req.body);
+    if (!parseResult.success) {
+        return res.status(400).json({ message: "Invalid input", errors: parseResult.error.errors });
+    }
+    const { id, data } = parseResult.data;
     if (!data || !id) {
         return res.status(400).json({ message: "Fill all the details" });
     }

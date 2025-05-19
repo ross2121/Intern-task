@@ -1,6 +1,7 @@
 # Notification Service
-
-A robust notification service that handles email and SMS notifications using Kafka for message queuing. This service provides a scalable and reliable way to send notifications to users through multiple channels.
+An internship task
+Note-I am not able to deployed it because of the kafka 
+The sms service i have choosen is of twillo so it is trial that is why showing these type of message
 
 ## Features
 
@@ -41,6 +42,26 @@ DATABASE_URL="postgresql://username:password@localhost:5432/database_name"
 ```bash
 npx prisma migrate dev
 ```
+
+## Running with Docker
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-name>
+   ```
+
+2. Build the Docker image:
+   ```bash
+   docker build -t notification-service .
+   ```
+
+3. Run the Docker container:
+   ```bash
+   docker run -p 3000:3000 notification-service
+   ```
+
+4. The application will be available at http://localhost:3000.
 
 ## API Endpoints
 
@@ -97,7 +118,3 @@ The service uses Prisma with the following main models:
 3. Commit your changes
 4. Push to the branch
 5. Create a new Pull Request
-
-## License
-
-[Add your license here] 
